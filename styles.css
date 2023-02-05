@@ -84,6 +84,9 @@ body {
     .header-right {
       float: none;
     }
+    .bg-text {
+        font-size: 5vw;
+    }
   }
 
 .headcontainer {
@@ -119,6 +122,6 @@ body {
     width: 90%;
     padding: 20px;
     text-align: center;
-    font-size: 50pt;
+    font-size: 50px;
     text-shadow: 0px 0px 50px #000000;
   }
