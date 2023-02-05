@@ -2,12 +2,18 @@ body {
     text-align: center;
     font-family: "Lexend";
     font-weight: bold;
+    margin: 0;
 }
 
 .header {
     overflow: hidden;
-    background-color: #8428b3;
-    padding: 20px 10px;
+    background-color: #654186;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    border-radius: 0em 0em 50px 50px;
   }
   
   /* Style the header links */
@@ -78,4 +84,41 @@ body {
     .header-right {
       float: none;
     }
+  }
+
+.headcontainer {
+    position: relative;
+    align-self: auto;
+    width:100%;
+    height: 100vh;
+}
+
+.bg-image {
+    /* The image used */
+    background: linear-gradient(to bottom, #00000000 85%, #F5EAFC 90%), url('BlackHole2.png') no-repeat;
+  
+    /* Add the blur effect */
+  
+    height: 100%;
+    width: 100%;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Position text in the middle of the page/image */
+  .bg-text {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 90%;
+    padding: 20px;
+    text-align: center;
+    font-size: 50pt;
+    text-shadow: 0px 0px 50px #000000;
   }
