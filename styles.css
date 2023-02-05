@@ -1,4 +1,7 @@
-HTML{font-size: calc((1vh+1vw)/2)}
+HTML{
+  font-size: calc((1vh+1vw)/2);
+  scroll-behavior: smooth;
+}
 
 body {
     text-align: center;
@@ -77,18 +80,202 @@ body {
     opacity: 1;
     right: 0;
   }
+
+
+
+
+
+
+
+nav{
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: #000;
+}
+.logo {
+	color: #fff;
+	text-transform: capitalize;
+	font-size: 25px;
+	cursor: pointer;
+	font-weight: 900;
+	letter-spacing: 1px;
+}
+.logo span{
+  color: #654186; 
+}
+
+.menu{
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+}
+.menu li{
+  list-style: none;
+}
+* {
+  box-sizing: inherit;
+  transition-property: all;
+  transition-duration: .6s;
+  transition-timing-function: ease;
+}
+.menu a{
+  color: #ffffff;
+  letter-spacing: 0;
+  padding-left: 100px;
+  font-size:20px;
+  font-weight: 400;
+  line-height: 3vh;
+  text-decoration: none;
+}
+.menu a:hover, .menu a:active {
+	color: deepskyblue;
+	font-weight: 500;
+  letter-spacing: 5px;
+}
+.menu a:after, .menu a:before{
+  backface-visibility: hidden;
+  border: 1px solid #7a7a7a00;
+  bottom: 0px;
+  content: " ";
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  transition: all 280ms ease-in-out;
+  width: 0;
+}
+.menu a:hover:after, .menu a:hover:before {
+  backface-visibility: hidden;
+  border-color: #999999;
+  transition: width 350ms ease-in-out;
+  width: 70%;
+}
+.menu a:hover:before {
+  bottom: auto;
+  top: 0;
+  width: 70%;
+}
+
+
+
+
   
-  /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-  @media screen and (max-width: 500px) {
-    .header a {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-    .header-right {
-      float: none;
-    }
+@media screen and (max-width:1024px){
+  .menu{
+    width: 60%;
   }
+}
+@media screen and (max-width:768px){
+  body{
+    overflow-x: hidden;
+  }
+  .menu{
+    position: absolute;
+    right: -100%;
+    height: 90vh;
+    top: 10vh;
+    background-color: #000;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+  }
+  .bar{
+      display: block;
+  }
+}
+
+
+.banner {
+  background: linear-gradient(to bottom, #00000080 0%, #F5EAFC 90%), url('BlackHole2.png') no-repeat;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.content h2 {
+  font-family: "Lexend";
+  color: #fff;
+  font-size: 100px;
+  text-shadow: 0px 0px 50px #000000;
+}
+.content p {
+  width: 50%;
+  color: rgba(255,255,255,0.6);
+  line-height: 2;
+}
+.content a {
+  background: deepskyblue;
+  text-decoration: none;
+  padding: 15px 30px;
+  color: #fff;
+  display: inline-block;
+  margin-top: 20px;
+}
+.socials i {
+  color: #fff;
+  font-size: 18px;
+  margin-right: 25px;
+}
+.socials {
+  margin-top: 30px;
+}
+.wrapper {
+  width: 1060px;
+  margin: auto;
+  padding-top: 12%;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+  .wrapper {
+    width: 75%;
+    padding-top: 26%;
+  }
+  .content{
+    text-align: center;
+  }
+  .content h2 {
+    font-size: 60px;
+  }
+  .content p {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .banner {
+    background-position: 60%;
+  }
+  .wrapper {
+    width: 75%;
+    padding-top: 26%;
+  }
+  .content h2 {
+    font-size: 30px;
+  }
+  .content p {
+    width: 100%;
+  }
+}
+
+
+
 
 .headcontainer {
     position: relative;
