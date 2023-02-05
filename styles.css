@@ -117,12 +117,12 @@ body {
   .bg-text {
     color: white;
     position: absolute;
-    top: 50%;
+    transform: translate(-50%,-50%);
     left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 10%;
+
     z-index: 1;
-    width: 90%;
-    padding: 20px;
+
     text-align: center;
     font-size: 10rem;
     text-shadow: 0px 0px 50px #000000;
