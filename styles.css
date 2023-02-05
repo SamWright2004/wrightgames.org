@@ -1,5 +1,4 @@
 HTML{
-  font-size: calc((1vh+1vw)/2);
   scroll-behavior: smooth;
 }
 
@@ -7,9 +6,8 @@ body {
     text-align: center;
     font-family: "Lexend";
     font-weight: bold;
-    margin: 0;
-    overflow-x: hidden !important;
     min-width: none;
+    overflow-x: hidden;
 }
 
 .header {
@@ -83,6 +81,16 @@ body {
 
 
 
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+    transition-property: all;
+    transition-duration: .6s;
+    transition-timing-function: ease;
+  }
+
+
 
 
 
@@ -101,7 +109,7 @@ nav{
 .logo {
 	color: #fff;
 	text-transform: capitalize;
-	font-size: 25px;
+	font-size: 24px;
 	cursor: pointer;
 	font-weight: 900;
 	letter-spacing: 1px;
@@ -122,19 +130,12 @@ nav{
 .menu li{
   list-style: none;
 }
-* {
-  box-sizing: inherit;
-  transition-property: all;
-  transition-duration: .6s;
-  transition-timing-function: ease;
-}
 .menu a{
   color: #ffffff;
   letter-spacing: 0;
-  padding-left: 100px;
-  font-size:20px;
-  font-weight: 400;
-  line-height: 3vh;
+  padding: 30px;
+  font-size: 15px;
+  font-weight: 600;
   text-decoration: none;
 }
 .menu a:hover, .menu a:active {
@@ -165,7 +166,17 @@ nav{
   width: 70%;
 }
 
-
+.bar{
+  display: none;
+  cursor: pointer;
+}
+.bar div{
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px;
+  transition: all .5s ease;
+}
 
 
   
@@ -200,6 +211,18 @@ nav{
   }
 }
 
+.nav-active{
+  transform: translateX(-100%);
+}
+.bar-active .bar-1{
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+.bar-active .bar-2{
+  opacity: 0;
+}
+.bar-active .bar-3{
+  transform: rotate(45deg) translate(-5px, -6px);
+}
 
 .banner {
   background: linear-gradient(to bottom, #00000080 0%, #F5EAFC 90%), url('BlackHole2.png') no-repeat;
