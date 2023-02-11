@@ -3819,7 +3819,17 @@ input, select, textarea {
 
 			}
 
+			@media screen and (max-width: 980px) {
+				#main {
+					border-radius: 30px;
+				}
+			}
+
 			@media screen and (max-width: 736px) {
+				
+				#main {
+					border-radius: 30px;
+				}
 
 				#main > .post {
 					padding: 4rem 2rem 2rem 2rem ;
