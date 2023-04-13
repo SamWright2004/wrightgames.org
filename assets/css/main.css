@@ -3226,10 +3226,10 @@ input, select, textarea {
 /* Wrapper */
 
 	#wrapper {
-		-moz-transition: opacity 0.5s ease;
-		-webkit-transition: opacity 0.5s ease;
-		-ms-transition: opacity 0.5s ease;
-		transition: opacity 0.5s ease;
+		-moz-transition: opacity 0.3s ease;
+		-webkit-transition: opacity 0.3s ease;
+		-ms-transition: opacity 0.3s ease;
+		transition: opacity 0.3s ease;
 		position: relative;
 		z-index: 1;
 		overflow: hidden;
