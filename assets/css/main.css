@@ -73,6 +73,10 @@ input, select, textarea {
 	appearance: none;
 }
 
+#myiframe {
+	width: 100%;
+}
+
 /* Basic */
 
 	@-ms-viewport {
