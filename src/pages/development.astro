@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getProjects, isInProgress } from '../lib/projects';
+const projects = (await getProjects()).filter(isInProgress);
+---
+
+<Base title="In progress">
+  <section class="page-intro shell">
+    <p class="eyebrow">
+      <span class="status-dot"></span> The workbench / Ideas becoming projects
+    </p>
+    <h1>Still in the making.</h1>
+    <p>
+      Early ideas, production experiments and longer projects. These are works
+      in progress, with room to change.
+    </p>
+  </section>
+  <section class="shell work-section" aria-label="Work in progress">
+    <div class="project-grid">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+</Base>

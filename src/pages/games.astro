@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getProjects } from '../lib/projects';
+const projects = (await getProjects()).filter((project) =>
+  project.data.categories.includes('interactive'),
+);
+---
+
+<Base title="Games & software">
+  <section class="page-intro shell">
+    <p class="eyebrow">Wright Games / Interactive work</p>
+    <h1>Built to be used.</h1>
+    <p>
+      Games, apps and interactive experiments from the Wright Games archive and
+      beyond.
+    </p>
+  </section>
+  <section class="shell work-section" aria-label="Games and software">
+    <div class="project-grid">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+</Base>

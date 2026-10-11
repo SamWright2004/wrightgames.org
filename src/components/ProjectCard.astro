@@ -1,0 +1,80 @@
+---
+import { categoryLabel } from '../data/site';
+import { statuses, projectUrl, type Project } from '../lib/projects';
+interface Props {
+  project: Project;
+  index?: number;
+  compact?: boolean;
+}
+const { project, index, compact = false } = Astro.props;
+const data = project.data;
+---
+
+<article class:list={['project-card', { compact }]}>
+  <a
+    class="project-image-link"
+    href={projectUrl(project)}
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <div
+      class:list={[
+        'project-image',
+        `tone-${data.categories[0]}`,
+        { 'project-image-contain': data.coverFit === 'contain' },
+      ]}
+    >
+      <div class="type-cover">
+        <span class="type-cover-label">
+          {data.cover ? 'From the portfolio' : 'Working notebook'} /{' '}
+          {data.stage ?? statuses[data.status]}
+        </span>
+        <span class="type-cover-title">{data.title}</span>
+        <span class="type-cover-line" aria-hidden="true"></span>
+        <span class="type-cover-bottom">
+          Sam Wright · {categoryLabel(data.categories[0])}
+        </span>
+      </div>
+      {data.cover && (
+        <img
+          src={data.cover.src}
+          alt=""
+          width="960"
+          height="600"
+          loading="lazy"
+          decoding="async"
+          data-cover-image
+        />
+      )}
+      <span class="project-open" aria-hidden="true">
+        ↗
+      </span>
+      {['development', 'concept', 'archive'].includes(data.status) && (
+        <span class="status-badge">{statuses[data.status]}</span>
+      )}
+    </div>
+  </a>
+  <div class="project-meta">
+    <span>{data.categories.map(categoryLabel).join(' / ')}</span>
+    <span>
+      {data.year ??
+        (index !== undefined ? String(index + 1).padStart(2, '0') : '')}
+    </span>
+  </div>
+  <h3>
+    <a href={projectUrl(project)}>{data.title}</a>
+  </h3>
+  <p class="project-summary">{data.summary}</p>
+  <p class="project-role">{data.role}</p>
+</article>
+<script>
+  document
+    .querySelectorAll<HTMLImageElement>('[data-cover-image]')
+    .forEach((image) => {
+      const hideBroken = () => {
+        image.hidden = true;
+      };
+      image.addEventListener('error', hideBroken);
+      if (image.complete && image.naturalWidth === 0) hideBroken();
+    });
+</script>

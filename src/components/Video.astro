@@ -1,0 +1,62 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  poster?: string;
+}
+const { id, title, poster } = Astro.props;
+---
+
+<div class="video-player" data-video={id} data-title={title}>
+  <a
+    class="video-launch"
+    href={`https://www.youtube.com/watch?v=${id}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {poster && (
+      <img
+        src={poster}
+        alt=""
+        width="1280"
+        height="720"
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+    <span class="video-launch-label">
+      <span class="play-icon" aria-hidden="true">
+        ▶
+      </span>
+      <span>
+        Play {title}
+        <small>Loads YouTube when selected</small>
+      </span>
+    </span>
+  </a>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-video]').forEach((player) => {
+    const poster = player.querySelector('img');
+    if (poster) {
+      poster.addEventListener('error', () => {
+        poster.hidden = true;
+      });
+      if (poster.complete && poster.naturalWidth === 0) poster.hidden = true;
+    }
+    player.querySelector('a')?.addEventListener('click', (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
+        return;
+      event.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${player.dataset.video}?autoplay=1&rel=0`;
+      iframe.title = player.dataset.title ?? 'Project video';
+      iframe.allow =
+        'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      player.replaceChildren(iframe);
+      iframe.focus();
+    });
+  });
+</script>

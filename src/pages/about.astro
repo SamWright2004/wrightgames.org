@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, categories } from '../data/site';
+---
+
+<Base title="About">
+  <section class="page-intro shell about-intro">
+    <p class="eyebrow">Sam Wright / Filmmaker & digital creator</p>
+    <h1>
+      Interested in how
+      <br />
+      <em>ideas become real.</em>
+    </h1>
+    <p>
+      I work across film, digital art and software. I enjoy the creative
+      decisions and the technical problem-solving that turn an idea into
+      something people can watch, explore or use.
+    </p>
+  </section>
+  <section class="shell about-content">
+    <div class="about-portrait" aria-hidden="true">
+      <span>
+        Stories
+        <br />+ systems
+        <br />+ a little
+        <br />
+        <em>curiosity.</em>
+      </span>
+      <small>Sam Wright / Leeds, UK</small>
+    </div>
+    <div class="prose">
+      <h2>
+        A broad set of interests.
+        <br />A hands-on approach.
+      </h2>
+      <p>
+        I started making games and mobile apps under Wright Games. Projects like
+        pTable gave me a way to combine programming, interface design and my
+        interest in science.
+      </p>
+      <p>
+        Film has become another important part of my work. I edited{' '}
+        <a href="/work/shadows-in-motion/">Shadows in Motion</a> and{' '}
+        <a href="/work/across-the-field/">Across the Field</a>, and I’m
+        developing longer projects that bring filmmaking together with digital
+        environments.
+      </p>
+      <p>
+        I like building things and working out how they fit together. Moving
+        between creative and technical work gives me different ways to approach
+        the same problem: what am I trying to communicate, and what will make it
+        work?
+      </p>
+      <div class="about-contact">
+        <a class="button button-primary" href={`mailto:${site.email}`}>
+          Get in touch ↗
+        </a>
+        {site.cv && (
+          <a class="button" href={site.cv} download>
+            Download CV ↓
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+  <section class="section shell">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Explore the work</p>
+        <h2>
+          Different tools.
+          <br />
+          The same curiosity.
+        </h2>
+      </div>
+    </div>
+    <div class="practice-list">
+      {categories.map((category, index) => (
+        <a href={`/work/?category=${category.id}`}>
+          <span class="index-number">0{index + 1}</span>
+          <h3>{category.label}</h3>
+          <p>{category.description}</p>
+          <span aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

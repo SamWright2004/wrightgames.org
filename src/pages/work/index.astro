@@ -1,0 +1,157 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { categories } from '../../data/site';
+import { getProjects, isInProgress } from '../../lib/projects';
+const projects = await getProjects();
+---
+
+<Base title="Work">
+  <section class="page-intro shell">
+    <p class="eyebrow">The portfolio / Explore by discipline</p>
+    <h1>Made of curiosity.</h1>
+    <p>
+      Films, digital worlds and things you can interact with. A selection of
+      finished work, experiments and early projects.
+    </p>
+  </section>
+  <section class="shell work-section" aria-label="Project collection">
+    <div class="work-controls" data-filters hidden>
+      <div class="filter-list" role="group" aria-label="Filter by discipline">
+        <button type="button" data-category="all" aria-pressed="true">
+          All work
+        </button>
+        {categories.map((c) => (
+          <button type="button" data-category={c.id} aria-pressed="false">
+            {c.label}
+          </button>
+        ))}
+      </div>
+      <label class="search-field">
+        <span class="sr-only">Search projects</span>
+        <span aria-hidden="true">⌕</span>
+        <input
+          type="search"
+          id="project-search"
+          placeholder="Find a project…"
+        />
+      </label>
+      <div class="status-control">
+        <label for="project-status">Show</label>
+        <select id="project-status">
+          <option value="all">All stages</option>
+          <option value="complete">Completed work</option>
+          <option value="progress">In progress</option>
+          <option value="archive">Archive</option>
+        </select>
+        <span id="result-count" role="status" aria-live="polite">
+          {projects.length} projects
+        </span>
+      </div>
+    </div>
+    <div class="project-grid work-grid">
+      {projects.map((project) => (
+        <div
+          data-project
+          data-categories={project.data.categories.join(' ')}
+          data-status={isInProgress(project) ? 'progress' : project.data.status}
+          data-search={[
+            project.data.title,
+            project.data.summary,
+            project.data.role,
+            ...project.data.tools,
+          ]
+            .join(' ')
+            .toLowerCase()}
+        >
+          <ProjectCard project={project} />
+        </div>
+      ))}
+    </div>
+    <div id="no-results" class="empty-state" hidden>
+      <h2>No projects found.</h2>
+      <p>Try a different search or discipline.</p>
+      <button type="button" class="button" id="reset-filters">
+        Clear filters
+      </button>
+    </div>
+  </section>
+</Base>
+<script>
+  import { matchesProject } from '../../lib/filter';
+  const controls = document.querySelector<HTMLElement>('[data-filters]')!;
+  const buttons = [
+    ...document.querySelectorAll<HTMLButtonElement>('[data-category]'),
+  ];
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-project]')];
+  const search = document.querySelector<HTMLInputElement>('#project-search')!;
+  const status = document.querySelector<HTMLSelectElement>('#project-status')!;
+  let active = 'all';
+  function applyFilters(updateUrl = true) {
+    let count = 0;
+    cards.forEach((card) => {
+      const match = matchesProject(
+        {
+          categories: (card.dataset.categories ?? '').split(' '),
+          status: card.dataset.status ?? '',
+          search: card.dataset.search ?? '',
+        },
+        { category: active, status: status.value, query: search.value },
+      );
+      card.hidden = !match;
+      if (match) count++;
+    });
+    buttons.forEach((button) =>
+      button.setAttribute(
+        'aria-pressed',
+        String(button.dataset.category === active),
+      ),
+    );
+    document.querySelector('#result-count')!.textContent =
+      `${count} project${count === 1 ? '' : 's'}`;
+    document.querySelector<HTMLElement>('#no-results')!.hidden = count !== 0;
+    if (updateUrl) {
+      const url = new URL(location.href);
+      for (const [key, value] of [
+        ['category', active === 'all' ? '' : active],
+        ['q', search.value],
+        ['status', status.value === 'all' ? '' : status.value],
+      ]) {
+        if (value) url.searchParams.set(key, value);
+        else url.searchParams.delete(key);
+      }
+      history.replaceState(null, '', url);
+    }
+  }
+  function readUrl() {
+    const params = new URLSearchParams(location.search);
+    active = buttons.some((b) => b.dataset.category === params.get('category'))
+      ? params.get('category')!
+      : 'all';
+    search.value = params.get('q') ?? '';
+    status.value = ['all', 'complete', 'progress', 'archive'].includes(
+      params.get('status') ?? '',
+    )
+      ? params.get('status')!
+      : 'all';
+    applyFilters(false);
+  }
+  buttons.forEach((button) =>
+    button.addEventListener('click', () => {
+      active = button.dataset.category!;
+      applyFilters();
+    }),
+  );
+  search.addEventListener('input', () => applyFilters());
+  status.addEventListener('change', () => applyFilters());
+  document.querySelector('#reset-filters')!.addEventListener('click', () => {
+    active = 'all';
+    search.value = '';
+    status.value = 'all';
+    applyFilters();
+    search.focus();
+  });
+  window.addEventListener('popstate', readUrl);
+  controls.hidden = false;
+  readUrl();
+</script>
