@@ -80,7 +80,7 @@ Put new assets in `public/media/<project-name>/`. Write `/media/<project-name>/i
 - A landscape cover around 1600 pixels wide is usually enough. Prefer WebP/JPEG for photographs and renders; PNG for transparency.
 - A short descriptive `alt` is required. Captions are optional.
 - Use `coverFit: "contain"` when cropping would hide part of a poster or interface.
-- No cover is required: the card uses a typographic treatment with the project's title and stage.
+- No cover is required: the card uses a typographic treatment with the project's title and stage. Developing projects can instead set `placeholder: "orbit"` or `placeholder: "worlds"` for an explicitly labelled visual placeholder.
 - Legacy images remain in the original `images/` directory and are copied automatically.
 - The existing film covers use genuine YouTube thumbnail URLs. You can replace those URLs with local stills at any time. A blocked thumbnail falls back to a readable title card.
 - Link a gallery image to open its full size. For very large originals, supply a web-sized version and link the original separately.
@@ -133,3 +133,18 @@ The **Check portfolio** workflow also makes a downloadable `portfolio-static-sit
 - One project: `https://wrightgames.org/work/across-the-field/`
 
 These are the production URLs. Browser filters also preserve search text and stage in the address bar. Direct project pages are fully rendered HTML and do not depend on JavaScript. A category filter requires JavaScript; without it, all projects remain visible and usable.
+
+## Replacing the development placeholders
+
+The KSP and Minecraft entries use `placeholder: "orbit"` and `placeholder: "worlds"`. These are abstract layout illustrations, visibly marked as placeholders. Add a real `cover` to the same Markdown file to replace the placeholder automatically in both listings and the project page:
+
+```yaml
+cover:
+  src: "/media/ksp-film/cover.webp"
+  alt: "Describe the actual production image"
+  caption: "Describe the stage of the work shown."
+```
+
+You can then remove the `placeholder` line. The homepage reads these same entries, so no layout edits are needed. Elfsight and the previous collage are retired; upload art directly using the existing `cover` and `gallery` fields.
+
+The small brand emblems live in `src/assets/`. Astro generates optimized web versions. The film emblem is selected automatically on project pages with the `film` category. The opening artwork and its credit link are in `src/pages/index.astro`; keep both pointing to the same project if you replace it.

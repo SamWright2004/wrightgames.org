@@ -1,5 +1,6 @@
 ---
 import { categoryLabel } from '../data/site';
+import Placeholder from './Placeholder.astro';
 import { statuses, projectUrl, type Project } from '../lib/projects';
 interface Props {
   project: Project;
@@ -45,6 +46,14 @@ const data = project.data;
           decoding="async"
           data-cover-image
         />
+      )}
+      {!data.cover && data.placeholder && (
+        <Placeholder kind={data.placeholder} />
+      )}
+      {data.videos.length > 0 && (
+        <span class="card-play" aria-hidden="true">
+          ▶ <span>Film</span>
+        </span>
       )}
       <span class="project-open" aria-hidden="true">
         ↗

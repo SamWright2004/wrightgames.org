@@ -52,7 +52,7 @@ SolarGaze had a historical "in development" label but no release date or link; i
 
 ## Missing assets and launch decisions
 
-1. **Elfsight gallery:** widget ID `2f473dcd-69dd-40cc-a19b-efdc3255b315`. Most gallery artwork is stored outside this repository. The public widget script was unavailable to the inspection environment (HTTP 403); those assets were not exported. Add the original image files/captions as project entries before considering the gallery fully migrated. Public ArtStation/DeviantArt links remain accessible from the redesign.
+1. **Elfsight gallery:** widget ID `2f473dcd-69dd-40cc-a19b-efdc3255b315`. Most gallery artwork is stored outside this repository. The public widget script was unavailable to the inspection environment (HTTP 403); those assets were not exported. The user subsequently confirmed that Elfsight and the collage should be retired. There is no remaining widget migration requirement; add any desired artwork directly as new project entries. Public ArtStation/DeviantArt links remain accessible from the redesign.
 2. **YouTube thumbnails/playback:** genuine thumbnail URLs are retained with a title-card fallback. This environment could not retrieve valid thumbnail image bytes, so no broken download was committed. Availability, image crop and embed permission need a normal-browser check. Prefer locally uploaded stills for predictable long-term thumbnails.
 3. **CV:** no public PDF is present. An optional CV setting exists; the button is hidden until a real file is supplied. The private CV/home address was not published.
 4. **Expanded project credits/process:** finish contribution descriptions and add genuine behind-the-scenes material when available. The current pages intentionally stick to supportable facts.
@@ -77,3 +77,9 @@ The original template's layout and JavaScript are not dependencies of the redesi
 - Filter logic tested for multiple categories, combined stages/search and no-match results.
 
 Browser QA was unavailable in this environment. Visual checks at narrow/mobile widths, keyboard interactions and live video playback remain launch checks; the tests above do not substitute for those checks.
+
+## Visual update, 12 October 2026
+
+The second pass follows the supplied concept: near-black and blue-grey surfaces, white type, a full-width artwork opening, compact featured projects and a separate development section. The four featured entries preserve the balance between film, artwork, interface design and software. The opening uses the existing BlackHole2 artwork, not generated footage.
+
+Both supplied donkey emblems are preserved as source assets. Astro creates small WebP display variants and a PNG favicon; the general emblem is a small header/footer signature and the film emblem appears in film project sidebars. KSP and Minecraft have explicitly labelled CSS placeholder panels, replaced automatically by a real cover when supplied. These are layout artwork, not production stills. No new third-party dependencies or scripts are needed.

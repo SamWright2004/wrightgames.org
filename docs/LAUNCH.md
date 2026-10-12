@@ -38,7 +38,7 @@ npm run preview
 
 Use the URL printed by Astro. Do not double-click an HTML file, because the site uses normal root-relative URLs. For larger unpublished changes, create another working branch; deployment is restricted to the branch listed in `deploy.yml` for push events.
 
-Browser visual review and real YouTube playback still need checking. The Elfsight gallery also contains assets that are not in Git; add those original files when available. See `MIGRATION_AUDIT.md` for the remaining content gaps.
+Browser visual review and real YouTube playback still need checking. Elfsight and the former collage are retired. Add any further artwork directly as project entries; no widget migration is required. See `MIGRATION_AUDIT.md` for the remaining content gaps.
 
 ## Keep the domain and important routes
 

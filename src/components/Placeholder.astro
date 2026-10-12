@@ -1,0 +1,39 @@
+---
+interface Props {
+  kind: 'orbit' | 'worlds';
+}
+const { kind } = Astro.props;
+---
+
+<div
+  class:list={['visual-placeholder', `placeholder-${kind}`]}
+  role="img"
+  aria-label={
+    kind === 'orbit'
+      ? 'Placeholder for a future KSP production image; abstract orbital lines'
+      : 'Placeholder for future Minecraft concept artwork; an abstract arrangement of windows'
+  }
+>
+  <div class="placeholder-art" aria-hidden="true">
+    {kind === 'orbit' ? (
+      <>
+        <span class="orbital-body"></span>
+        <span class="orbit orbit-one"></span>
+        <span class="orbit orbit-two"></span>
+        <span class="orbit orbit-three"></span>
+      </>
+    ) : (
+      <div class="world-windows">
+        {Array.from({ length: 12 }, (_, i) => (
+          <span style={`--i:${i}`}></span>
+        ))}
+      </div>
+    )}
+  </div>
+  <span class="placeholder-caption">
+    {kind === 'orbit'
+      ? 'Production imagery to come'
+      : 'Concept imagery to come'}{' '}
+    <span> / Placeholder</span>
+  </span>
+</div>
