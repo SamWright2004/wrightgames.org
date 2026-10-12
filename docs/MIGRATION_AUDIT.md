@@ -2,6 +2,8 @@
 
 Inspected repository: `SamWright2004/wrightgames.org`, `main` at `51b0129965c4218f380c59ccb1118a81e7dc8133`.
 
+**Deployment update, 12 October 2026:** after the initial redesign commit, a separate commit (`9ecd444`) added an Astro GitHub Pages workflow. The deployment succeeded and a direct HTTP check confirmed the redesign on `https://wrightgames.org/`. The current publishing branch is `codex/portfolio-redesign`; `main` still contains the original site. The workflow now verifies content and built output before the deployment job runs. Historical observations below describe the original inspection unless stated otherwise.
+
 ## What existed
 
 The site was a set of static HTML pages based on HTML5 UP's Massively template. There was no package manifest, build pipeline, reusable project model, content schema or test suite. `README.txt` was effectively empty.
@@ -55,7 +57,7 @@ SolarGaze had a historical "in development" label but no release date or link; i
 3. **CV:** no public PDF is present. An optional CV setting exists; the button is hidden until a real file is supplied. The private CV/home address was not published.
 4. **Expanded project credits/process:** finish contribution descriptions and add genuine behind-the-scenes material when available. The current pages intentionally stick to supportable facts.
 5. **Analytics:** the old `G-M2JVB8C6Y7` configuration remains in the untouched legacy homepage. Analytics is not loaded in the new front end. Decide what measurement/consent approach to use at launch.
-6. **Hosting:** `CNAME` suggests custom-domain static hosting, but this is not proof of the current publication source. The redesign builds to `dist/`; inspect the actual host settings before switching. No production settings, domain or `main` ref were changed.
+6. **Hosting:** the initial inspection found `CNAME` but no deployment workflow. The subsequent GitHub Actions deployment now builds and publishes `dist/` from `codex/portfolio-redesign`. Keep GitHub Pages on the Actions workflow, rather than publishing the source root through Jekyll. The original domain and `main` ref are preserved.
 
 ## Why Astro
 

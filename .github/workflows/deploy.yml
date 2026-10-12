@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: 24
 
+      - name: Verify content and built output before publishing
+        run: npm run check && npm test
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

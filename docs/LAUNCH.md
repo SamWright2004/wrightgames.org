@@ -1,45 +1,60 @@
-# Launching the redesign
+# Publishing the portfolio
 
-This branch is for development and review. The included workflow **checks and packages** the site; it does not deploy it. The existing live website is unaffected.
+The redesign is live at **https://wrightgames.org/**. Its current publishing branch is **`codex/portfolio-redesign`**. A push to that branch triggers the **Deploy portfolio** workflow. `main` still contains the original website.
+
+## Normal update flow
+
+1. Add or edit a project in `src/content/projects/` and put its images in `public/media/`.
+2. Preview locally with `npm run dev`.
+3. Set `draft: false` when the project is ready.
+4. Run `npm run verify`, then commit and push to `codex/portfolio-redesign`.
+5. Check **Actions → Deploy portfolio** for the completed deployment.
+
+No manual edits to navigation, templates or a project index are needed. Draft pages appear during local development but are excluded from production pages, listings and the sitemap. They are still files in this public repository, so draft mode is not private storage.
+
+## How publishing works
+
+`.github/workflows/deploy.yml` checks out the publishing branch, uses `withastro/action` with Node 24 to install dependencies and build the site, then runs the content/type check and built-output tests. Its deployment job depends on all those steps succeeding and publishes the prepared Pages artifact through the `github-pages` environment.
+
+The separate **Check portfolio** workflow also validates the branch and creates a downloadable `portfolio-static-site` artifact. This generic artifact is useful for review; the deploy workflow prepares its own Pages artifact.
+
+Keep **Settings → Pages → Build and deployment → Source** set to **GitHub Actions**. Do not switch to publishing the source branch root through Jekyll: the Astro source files must first be built into `dist/`.
 
 ## Review locally
 
+Use Node 24:
+
 ```sh
 npm ci
+npm run dev
+```
+
+To inspect the same production output that will be published:
+
+```sh
 npm run verify
 npm run preview
 ```
 
-Use Node 24. The built output is `dist/`. Serve it with `npm run preview`; do not double-click an HTML file, because the site uses normal root-relative URLs.
+Use the URL printed by Astro. Do not double-click an HTML file, because the site uses normal root-relative URLs. For larger unpublished changes, create another working branch; deployment is restricted to the branch listed in `deploy.yml` for push events.
 
-Before launch, review desktop and mobile widths, filters and keyboard focus, all film embeds, project credits and the asset gaps in `MIGRATION_AUDIT.md`. Add a suitable CV if wanted. Import the rest of the Elfsight artwork before removing access to that gallery from the live site.
+Browser visual review and real YouTube playback still need checking. The Elfsight gallery also contains assets that are not in Git; add those original files when available. See `MIGRATION_AUDIT.md` for the remaining content gaps.
 
 ## Keep the domain and important routes
 
 - Publish **the contents of `dist/`**, not the repository root.
 - The build copies `CNAME`, the existing `.htaccess`, all original images and the pTable policy.
-- Keep `/pTable.html` and `/pTable/` available: a store listing may link to either.
-- `/games/` and `/games.html` remain valid.
-- `/work/ptable/` is the app's portfolio page; it does not replace the policy.
-- The configured canonical domain is `https://wrightgames.org`. If the domain ever changes, update `astro.config.mjs`, `public/robots.txt`, `src/pages/sitemap.xml.ts` and `CNAME` together.
+- `/pTable.html` and `/pTable/` preserve the app privacy page.
+- `/games/` and `/games.html` preserve the old games entry points.
+- `/work/ptable/` is the app portfolio page and does not replace its policy.
+- The canonical domain is configured in `astro.config.mjs`, `public/robots.txt`, `src/pages/sitemap.xml.ts` and `CNAME`; update them together if the domain changes.
 
-## Hosting choices
+## Eventually moving production to main
 
-First check how the live site currently publishes. The repository has a custom-domain file but no previous deployment workflow; do not assume the active settings.
+When the redesign is ready to become the main codebase, review and merge it into `main`, and change the deployment workflow's push branch from `codex/portfolio-redesign` to `main` in the same merge. Check the `github-pages` environment's permitted branches if GitHub blocks deployment. The custom domain does not need to change.
 
-**GitHub Pages:** use an Actions deployment that builds with Node 24, runs `npm ci` and `npm run verify`, uploads `dist/` using `actions/upload-pages-artifact`, then deploys it using `actions/deploy-pages`. Configure the Pages environment and `pages: write` / `id-token: write` permissions. Set deployment to run only from the reviewed production branch. Leave the custom domain unchanged. The existing generic `portfolio-static-site` artifact is for download/review, not a Pages deployment artifact.
-
-**Existing static host:** set build command to `npm run build`, output directory to `dist`, and Node version to 24. If uploading manually, upload the contents of `dist/`, including the copied dotfile when the host uses Apache. New project routes are directories with `index.html`; no SPA fallback is required.
-
-Check provider documentation when configuring deployment, since hosting workflows can change. Suggested official references:
-
-- https://docs.astro.build/en/guides/deploy/github/
-- https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
-
-## Future update flow
-
-After deployment is configured, the intended routine is: add/edit Markdown and media → preview → commit → automated build → publish. Project updates do not require manually editing navigation, page templates or a project index.
+Until then, merging is not required to publish content: the redesign branch already deploys.
 
 ## Rollback
 
-Keep the old production deployment available when making the first switch. The original root site files are unchanged in this branch, and the original commit is recorded in `MIGRATION_AUDIT.md`. Restoring an earlier host deployment is preferable to deleting new content. Do not merge or change production settings just to preview this branch.
+Use a previous known-good commit/deployment when a change needs reversing. The original root files remain intact, and their original commit is recorded in the audit. Do not delete new project content or change the domain as a rollback method.

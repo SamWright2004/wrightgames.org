@@ -120,9 +120,9 @@ Change `src/data/site.ts` for your email, public location and profile links. To 
 1. Select the working branch.
 2. Use **Add file → Upload files** for media.
 3. Create or edit the corresponding Markdown file in `src/content/projects/`.
-4. Commit. The check workflow builds the site and reports mistakes.
+4. Commit and push. The workflows build and check the site, then publish the redesign branch to GitHub Pages.
 
-The workflow makes a downloadable `portfolio-static-site` artifact; it does not deploy. After a launch workflow is configured, the same content edits can trigger publication. See `LAUNCH.md`.
+The **Check portfolio** workflow also makes a downloadable `portfolio-static-site` artifact. The separate **Deploy portfolio** workflow publishes the build to **wrightgames.org** only after its checks pass. Both currently run on `codex/portfolio-redesign`; `main` is still the original website. Keep unfinished entries as `draft: true` or make changes on another working branch if they must not appear in the live site yet. See `LAUNCH.md`.
 
 ## Share links that match the job
 
@@ -132,4 +132,4 @@ The workflow makes a downloadable `portfolio-static-site` artifact; it does not 
 - Interactive work: `https://wrightgames.org/work/?category=interactive`
 - One project: `https://wrightgames.org/work/across-the-field/`
 
-These are the planned production URLs after launch. Browser filters also preserve search text and stage in the address bar. Direct project pages are fully rendered HTML and do not depend on JavaScript. A category filter requires JavaScript; without it, all projects remain visible and usable.
+These are the production URLs. Browser filters also preserve search text and stage in the address bar. Direct project pages are fully rendered HTML and do not depend on JavaScript. A category filter requires JavaScript; without it, all projects remain visible and usable.
