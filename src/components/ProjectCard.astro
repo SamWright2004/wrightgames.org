@@ -11,7 +11,10 @@ const { project, compact = false } = Astro.props;
 const data = project.data;
 ---
 
-<article class:list={['project-card', 'browse-card', { compact }]}>
+<article
+  style={`--cover-position: ${data.coverPosition}`}
+  class:list={['project-card', 'browse-card', { compact }]}
+>
   <a class="project-image-link" href={projectUrl(project)} data-project-preview>
     <div
       class:list={[
@@ -35,6 +38,9 @@ const data = project.data;
           height="600"
           loading="lazy"
           decoding="async"
+          class:list={{
+            'video-thumbnail': data.cover.src.includes('i.ytimg.com'),
+          }}
           data-cover-image
         />
       )}

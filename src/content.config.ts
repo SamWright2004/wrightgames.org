@@ -31,6 +31,10 @@ const projects = defineCollection({
     tools: z.array(z.string()).default([]),
     cover: picture.optional(),
     coverFit: z.enum(['cover', 'contain']).default('cover'),
+    coverPosition: z
+      .string()
+      .regex(/^\d{1,3}% \d{1,3}%$/)
+      .default('50% 50%'),
     placeholder: z.enum(['orbit', 'worlds']).optional(),
     featured: z.number().int().positive().optional(),
     draft: z.boolean().default(false),

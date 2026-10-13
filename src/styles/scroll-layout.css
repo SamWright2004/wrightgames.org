@@ -1,0 +1,205 @@
+/* Fixed opening artwork, scroll-linked title handoff and larger cover crops. */
+html {
+  scroll-padding-top: 115px;
+}
+.home-page .shell {
+  width: min(1760px, calc(100% - 64px));
+}
+.home-page .site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  width: 100%;
+  max-width: none;
+  padding-inline: max(32px, calc((100vw - 1760px) / 2));
+  min-height: 88px;
+  z-index: 10;
+  transition:
+    background 0.35s,
+    box-shadow 0.35s;
+}
+.hero-scrolled .home-page .site-header {
+  background: #090e18c9;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 1px 0 #ffffff12;
+}
+.scroll-enhanced .home-page .wordmark-text {
+  opacity: var(--brand-opacity, 0);
+}
+.home-page .cinema-hero {
+  min-height: 95svh;
+  background: transparent;
+}
+.hero-visual {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+.hero-visual .cinema-backdrop {
+  animation: none;
+  transform: none;
+}
+.scroll-enhanced .hero-visual {
+  position: fixed;
+  inset: 0;
+  height: 100svh;
+  opacity: var(--hero-opacity, 1);
+}
+.hero-past .hero-visual {
+  visibility: hidden;
+}
+.hero-visual .cinema-shade {
+  z-index: 0;
+}
+.hero-visual .cinema-backdrop {
+  z-index: -1;
+}
+.scroll-enhanced .cinema-content {
+  animation: none;
+}
+.scroll-enhanced #intro-heading {
+  opacity: var(--title-opacity, 1);
+}
+.cinema-content {
+  padding-block: 180px 190px;
+}
+.home-page .project-rail {
+  grid-auto-columns: minmax(420px, 55%);
+  gap: 24px;
+  padding-block: 22px 30px;
+  scroll-padding-inline: 4px;
+}
+.home-page .development-grid.project-rail {
+  grid-auto-columns: minmax(420px, 59%);
+}
+.home-page .browse-card .project-image {
+  aspect-ratio: 16/9;
+}
+.home-page .card-overlay {
+  inset: auto 32px 28px;
+}
+.home-page .browse-card .card-overlay h3 {
+  font-size: clamp(1.8rem, 3vw, 3rem);
+}
+.home-page .card-discipline {
+  font-size: 0.62rem;
+}
+.home-page .card-reveal {
+  font-size: 0.91rem;
+}
+.home-page .card-invitation {
+  font-size: 0.76rem;
+}
+.browse-card .project-image > img,
+.browse-card .project-image-contain > img {
+  object-fit: cover;
+  object-position: var(--cover-position, 50% 50%);
+  padding: 0;
+}
+/* YouTube's hqdefault stills have baked-in letterboxing. Crop that border too. */
+.browse-card .project-image > img.video-thumbnail {
+  transform: scale(1.18);
+}
+@media (hover: hover) and (pointer: fine) {
+  .browse-card:hover .project-image > img.video-thumbnail,
+  .browse-card:focus-within .project-image > img.video-thumbnail {
+    transform: scale(1.24);
+  }
+}
+.project-cover.contain img {
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+.preview-contain > img {
+  padding: 0;
+}
+.project-rail {
+  cursor: grab;
+}
+.project-rail.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
+}
+.project-rail.is-dragging * {
+  cursor: grabbing;
+}
+.project-rail img {
+  -webkit-user-drag: none;
+}
+.artwork-section {
+  padding-block: 50px 65px;
+}
+@media (max-width: 800px) {
+  .home-page .shell {
+    width: calc(100% - 40px);
+  }
+  .home-page .site-header {
+    width: 100%;
+    padding-inline: 20px;
+  }
+  .home-page .project-rail,
+  .home-page .development-grid.project-rail {
+    grid-auto-columns: 85%;
+    gap: 18px;
+  }
+  .home-page .card-overlay {
+    inset: auto 23px 23px;
+  }
+  .home-page .browse-card .card-overlay h3 {
+    font-size: 1.8rem;
+  }
+  .home-page .card-reveal {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 560px) {
+  html {
+    scroll-padding-top: 150px;
+  }
+  .home-page .cinema-hero {
+    min-height: 760px;
+    min-height: max(700px, 95svh);
+  }
+  .home-page .project-rail,
+  .home-page .selected-grid.project-rail,
+  .home-page .development-grid.project-rail {
+    grid-auto-columns: 94%;
+  }
+  .home-page .browse-card .project-image {
+    aspect-ratio: 1.25;
+  }
+  .home-page .card-overlay {
+    inset: auto 20px 20px;
+  }
+  .home-page .browse-card .card-overlay h3 {
+    font-size: 1.65rem;
+  }
+  .home-page .card-discipline {
+    font-size: 0.53rem;
+  }
+  .home-page .card-invitation {
+    font-size: 0.67rem;
+  }
+  .browse-card .project-image > img.video-thumbnail {
+    transform: scale(1.34);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-enhanced .hero-visual {
+    position: absolute;
+    opacity: 1;
+    height: 100%;
+  }
+  .scroll-enhanced .home-page .wordmark-text,
+  .scroll-enhanced #intro-heading {
+    opacity: 1;
+  }
+  .browse-card:hover .project-image > img.video-thumbnail,
+  .browse-card:focus-within .project-image > img.video-thumbnail {
+    transform: scale(1.18);
+  }
+}

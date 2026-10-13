@@ -155,6 +155,48 @@
     .querySelectorAll<HTMLElement>('[data-project-rail]')
     .forEach((rail) => {
       const section = rail.closest('section')!;
+      let dragStart: number | null = null;
+      let scrollStart = 0;
+      let dragged = false;
+      rail.addEventListener('dragstart', (event) => event.preventDefault());
+      rail.addEventListener('pointerdown', (event) => {
+        if (event.pointerType !== 'mouse' || event.button !== 0) return;
+        dragStart = event.clientX;
+        scrollStart = rail.scrollLeft;
+        dragged = false;
+      });
+      rail.addEventListener('pointermove', (event) => {
+        if (dragStart === null) return;
+        const distance = event.clientX - dragStart;
+        if (Math.abs(distance) > 6 && !dragged) {
+          dragged = true;
+          rail.setPointerCapture(event.pointerId);
+          rail.classList.add('is-dragging');
+        }
+        if (dragged) rail.scrollLeft = scrollStart - distance;
+      });
+      const endDrag = () => {
+        dragStart = null;
+        rail.classList.remove('is-dragging');
+      };
+      rail.addEventListener('pointerup', endDrag);
+      rail.addEventListener('pointercancel', endDrag);
+      rail.addEventListener('lostpointercapture', endDrag);
+      rail.addEventListener('pointerleave', () => {
+        if (!dragged) endDrag();
+      });
+      rail.addEventListener(
+        'click',
+        (event) => {
+          if (dragged) {
+            event.preventDefault();
+            event.stopPropagation();
+            dragged = false;
+          }
+        },
+        true,
+      );
+
       const controls = document.createElement('div');
       controls.className = 'rail-controls';
       for (const [direction, label, glyph] of [

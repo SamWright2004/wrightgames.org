@@ -7,7 +7,7 @@ role: 'Digital artwork'
 featured: 3
 cover:
   {
-    'src': '/images/BlackHole2.png',
+    'src': '/media/renders/black-hole.webp',
     'alt': 'A luminous purple accretion disc bends around a black hole in a star field',
     'caption': 'Original digital artwork from the Wright Games portfolio.',
   }

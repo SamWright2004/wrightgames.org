@@ -154,3 +154,11 @@ The small brand emblems live in `src/assets/`. Astro generates optimized web ver
 Project cards now use image overlays and open an in-page preview. The preview reads the same title, cover, summary, role, stage and videos from the project file. Films play inside it only after the visitor selects a play control. Closing the preview stops playback and returns focus to the selected card. Escape and clicking outside also close it. The full project page remains available, and cards remain ordinary links without JavaScript or when opened in a new tab.
 
 The homepage uses horizontally scrollable project rows (swipe on touchscreens, arrows on desktop). Keep adding featured entries as before. The complete collection retains its filters and grid. Hover reveals a short summary, enlarges the image and softly colours the surrounding background. Touch users see the summary without hovering. Reduced-motion preferences disable the decorative motion. Native cross-page transitions enhance supported browsers without changing navigation in others.
+
+## Cover crops and homepage scrolling
+
+Cards always crop their images to fill the frame. Use `coverPosition: "50% 40%"` to move the crop's focal point. `coverFit: "contain"` preserves the entire artwork on the full project page and in the preview; it no longer creates bars in the browsing card. YouTube hqdefault thumbnails receive an extra crop to remove embedded letterboxing.
+
+The homepage's artwork row automatically includes completed projects in the `3d` category. The imported renders live in `public/media/renders/` as optimized WebP images. The original uploads remain in the supplied archive. The existing Black hole page uses the supplied brighter render; it is not duplicated.
+
+The opening artwork stays fixed and fades as the page scrolls, with the title handing off to the fixed navigation. Reduced-motion mode keeps normal static artwork. Desktop rows can be dragged, touch rows swiped, and the arrow controls remain available.
