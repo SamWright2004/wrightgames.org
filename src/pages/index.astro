@@ -32,7 +32,7 @@ const developing = projects.filter(isInProgress).slice(0, 2);
         Making ambitious ideas visible.
       </p>
       <div class="hero-actions">
-        <a class="button button-primary" href="/work/">
+        <a class="button button-primary" href="#selected-heading">
           Explore projects <span aria-hidden="true">↗</span>
         </a>
         <a class="button hero-secondary" href="/about/">
@@ -70,7 +70,11 @@ const developing = projects.filter(isInProgress).slice(0, 2);
         All projects <span aria-hidden="true">→</span>
       </a>
     </div>
-    <div class="project-grid selected-grid">
+    <div
+      class="project-grid selected-grid project-rail"
+      data-project-rail
+      aria-label="Selected projects"
+    >
       {selected.map((project, index) => (
         <ProjectCard project={project} index={index} />
       ))}
@@ -90,7 +94,11 @@ const developing = projects.filter(isInProgress).slice(0, 2);
           In development <span aria-hidden="true">→</span>
         </a>
       </div>
-      <div class="project-grid development-grid">
+      <div
+        class="project-grid development-grid project-rail"
+        data-project-rail
+        aria-label="Projects in development"
+      >
         {developing.map((project) => (
           <ProjectCard project={project} compact />
         ))}

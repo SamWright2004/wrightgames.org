@@ -148,3 +148,9 @@ cover:
 You can then remove the `placeholder` line. The homepage reads these same entries, so no layout edits are needed. Elfsight and the previous collage are retired; upload art directly using the existing `cover` and `gallery` fields.
 
 The small brand emblems live in `src/assets/`. Astro generates optimized web versions. The film emblem is selected automatically on project pages with the `film` category. The opening artwork and its credit link are in `src/pages/index.astro`; keep both pointing to the same project if you replace it.
+
+## Browsing and previews
+
+Project cards now use image overlays and open an in-page preview. The preview reads the same title, cover, summary, role, stage and videos from the project file. Films play inside it only after the visitor selects a play control. Closing the preview stops playback and returns focus to the selected card. Escape and clicking outside also close it. The full project page remains available, and cards remain ordinary links without JavaScript or when opened in a new tab.
+
+The homepage uses horizontally scrollable project rows (swipe on touchscreens, arrows on desktop). Keep adding featured entries as before. The complete collection retains its filters and grid. Hover reveals a short summary, enlarges the image and softly colours the surrounding background. Touch users see the summary without hovering. Reduced-motion preferences disable the decorative motion. Native cross-page transitions enhance supported browsers without changing navigation in others.

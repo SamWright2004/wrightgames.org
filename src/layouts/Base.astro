@@ -12,6 +12,8 @@ import '@fontsource-variable/manrope';
 import '@fontsource-variable/dm-sans';
 import '../styles/global.css';
 import '../styles/cinematic.css';
+import '../styles/browse.css';
+import ProjectBrowser from '../components/ProjectBrowser.astro';
 interface Props {
   title?: string;
   description?: string;
@@ -100,6 +102,7 @@ const path = Astro.url.pathname;
     <main id="main" tabindex="-1">
       <slot />
     </main>
+    <ProjectBrowser />
     <footer id="contact" class="site-footer">
       <div class="shell">
         <div class="footer-top">

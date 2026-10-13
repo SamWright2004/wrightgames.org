@@ -7,17 +7,12 @@ interface Props {
   index?: number;
   compact?: boolean;
 }
-const { project, index, compact = false } = Astro.props;
+const { project, compact = false } = Astro.props;
 const data = project.data;
 ---
 
-<article class:list={['project-card', { compact }]}>
-  <a
-    class="project-image-link"
-    href={projectUrl(project)}
-    tabindex="-1"
-    aria-hidden="true"
-  >
+<article class:list={['project-card', 'browse-card', { compact }]}>
+  <a class="project-image-link" href={projectUrl(project)} data-project-preview>
     <div
       class:list={[
         'project-image',
@@ -27,14 +22,10 @@ const data = project.data;
     >
       <div class="type-cover">
         <span class="type-cover-label">
-          {data.cover ? 'From the portfolio' : 'Working notebook'} /{' '}
           {data.stage ?? statuses[data.status]}
         </span>
         <span class="type-cover-title">{data.title}</span>
         <span class="type-cover-line" aria-hidden="true"></span>
-        <span class="type-cover-bottom">
-          Sam Wright · {categoryLabel(data.categories[0])}
-        </span>
       </div>
       {data.cover && (
         <img
@@ -50,40 +41,75 @@ const data = project.data;
       {!data.cover && data.placeholder && (
         <Placeholder kind={data.placeholder} />
       )}
-      {data.videos.length > 0 && (
-        <span class="card-play" aria-hidden="true">
-          ▶ <span>Film</span>
+      <div class="card-shade" aria-hidden="true"></div>
+      <div class="card-overlay">
+        <p class="card-discipline">
+          {data.categories.map(categoryLabel).join(' · ')}
+        </p>
+        <h3>{data.title}</h3>
+        <p class="card-reveal">{data.summary}</p>
+        <span class="card-invitation">
+          {data.videos.length ? '▶ Watch & explore' : 'Explore project'}{' '}
+          <span aria-hidden="true">↗</span>
         </span>
-      )}
-      <span class="project-open" aria-hidden="true">
-        ↗
-      </span>
+      </div>
       {['development', 'concept', 'archive'].includes(data.status) && (
         <span class="status-badge">{statuses[data.status]}</span>
       )}
     </div>
   </a>
-  <div class="project-meta">
-    <span>{data.categories.map(categoryLabel).join(' / ')}</span>
-    <span>
-      {data.year ??
-        (index !== undefined ? String(index + 1).padStart(2, '0') : '')}
-    </span>
-  </div>
-  <h3>
-    <a href={projectUrl(project)}>{data.title}</a>
-  </h3>
-  <p class="project-summary">{data.summary}</p>
-  <p class="project-role">{data.role}</p>
+  <template data-preview-template>
+    <div
+      class:list={[
+        'preview-art',
+        { 'preview-contain': data.coverFit === 'contain' },
+      ]}
+    >
+      {data.cover ? (
+        <img
+          src={data.cover.src}
+          alt={data.cover.alt}
+          width="1600"
+          height="900"
+        />
+      ) : data.placeholder ? (
+        <Placeholder kind={data.placeholder} />
+      ) : (
+        <div class="type-cover">
+          <span class="type-cover-title">{data.title}</span>
+        </div>
+      )}
+      <div class="preview-art-shade"></div>
+      <div class="preview-heading">
+        <p class="eyebrow">
+          {data.categories.map(categoryLabel).join(' · ')} /{' '}
+          {statuses[data.status]}
+        </p>
+        <h2 id="preview-title">{data.title}</h2>
+      </div>
+    </div>
+    <div class="preview-body">
+      <p class="preview-summary">{data.summary}</p>
+      <p class="preview-role">
+        My contribution <strong>{data.role}</strong>
+        {data.stage && <span>{data.stage}</span>}
+      </p>
+      <div class="preview-actions">
+        {data.videos.map((video) => (
+          <button
+            type="button"
+            class="button button-primary"
+            data-preview-video={video.id}
+            data-video-title={video.title}
+          >
+            ▶ {video.title}
+          </button>
+        ))}
+        <a class="button" href={projectUrl(project)}>
+          Explore the full project ↗
+        </a>
+      </div>
+      <div class="preview-player" hidden></div>
+    </div>
+  </template>
 </article>
-<script>
-  document
-    .querySelectorAll<HTMLImageElement>('[data-cover-image]')
-    .forEach((image) => {
-      const hideBroken = () => {
-        image.hidden = true;
-      };
-      image.addEventListener('error', hideBroken);
-      if (image.complete && image.naturalWidth === 0) hideBroken();
-    });
-</script>

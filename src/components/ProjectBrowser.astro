@@ -1,0 +1,187 @@
+<div class="browse-ambience" aria-hidden="true"></div>
+<dialog class="project-dialog" aria-labelledby="preview-title">
+  <button
+    class="preview-close"
+    type="button"
+    aria-label="Close project preview"
+    autofocus
+  >
+    ×
+  </button>
+  <div class="preview-content"></div>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.project-dialog')!;
+  const content = dialog.querySelector<HTMLElement>('.preview-content')!;
+  const closeButton =
+    dialog.querySelector<HTMLButtonElement>('.preview-close')!;
+  const ambience = document.querySelector<HTMLElement>('.browse-ambience')!;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let origin: HTMLElement | null = null;
+  let closing = false;
+  let animation: Animation | undefined;
+  function stopVideo() {
+    content.querySelector('.preview-player')?.replaceChildren();
+  }
+  async function close() {
+    if (closing || !dialog.open) return;
+    closing = true;
+    stopVideo();
+    animation?.cancel();
+    if (!reduced.matches) {
+      animation = dialog.animate(
+        [
+          { opacity: 1, transform: 'translateY(0) scale(1)' },
+          { opacity: 0, transform: 'translateY(20px) scale(.97)' },
+        ],
+        { duration: 180, easing: 'ease-in', fill: 'forwards' },
+      );
+      await animation.finished.catch(() => {});
+    }
+    dialog.close();
+    animation?.cancel();
+    content.replaceChildren();
+    document.documentElement.classList.remove('preview-is-open');
+    origin?.focus({ preventScroll: true });
+    closing = false;
+  }
+  document
+    .querySelectorAll<HTMLAnchorElement>('[data-project-preview]')
+    .forEach((link) => {
+      const card = link.closest<HTMLElement>('.project-card')!;
+      const img = card.querySelector<HTMLImageElement>('[data-cover-image]');
+      if (img) {
+        const fallback = () => {
+          img.hidden = true;
+        };
+        img.addEventListener('error', fallback);
+        if (img.complete && !img.naturalWidth) fallback();
+      }
+      const illuminate = () => {
+        if (img && !img.hidden) {
+          ambience.style.backgroundImage = `url(${JSON.stringify(img.currentSrc || img.src)})`;
+          ambience.classList.add('is-lit');
+        }
+      };
+      card.addEventListener('pointerenter', illuminate);
+      link.addEventListener('focus', illuminate);
+      card.addEventListener('pointerleave', () =>
+        ambience.classList.remove('is-lit'),
+      );
+      link.addEventListener('blur', () => ambience.classList.remove('is-lit'));
+      link.addEventListener('click', (event) => {
+        if (
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey ||
+          typeof dialog.showModal !== 'function'
+        )
+          return;
+        const template = card.querySelector<HTMLTemplateElement>(
+          '[data-preview-template]',
+        );
+        if (!template || closing) return;
+        event.preventDefault();
+        origin = link;
+        const rect = card.getBoundingClientRect();
+        content.replaceChildren(template.content.cloneNode(true));
+        content.querySelectorAll<HTMLImageElement>('img').forEach((image) =>
+          image.addEventListener('error', () => {
+            image.hidden = true;
+          }),
+        );
+        document.documentElement.classList.add('preview-is-open');
+        dialog.showModal();
+        dialog.scrollTop = 0;
+        closeButton.focus({ preventScroll: true });
+        if (!reduced.matches) {
+          const target = dialog.getBoundingClientRect();
+          const x =
+            rect.left + rect.width / 2 - (target.left + target.width / 2);
+          const y =
+            rect.top + rect.height / 2 - (target.top + target.height / 2);
+          animation = dialog.animate(
+            [
+              {
+                opacity: 0.15,
+                transform: `translate(${x * 0.3}px, ${y * 0.3}px) scale(.85)`,
+              },
+              { opacity: 1, transform: 'translate(0,0) scale(1)' },
+            ],
+            { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' },
+          );
+        }
+      });
+    });
+  closeButton.addEventListener('click', close);
+  dialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    close();
+  });
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      const r = dialog.getBoundingClientRect();
+      if (
+        event.clientX < r.left ||
+        event.clientX > r.right ||
+        event.clientY < r.top ||
+        event.clientY > r.bottom
+      )
+        close();
+    }
+  });
+  content.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>(
+      '[data-preview-video]',
+    );
+    if (!button) return;
+    const player = content.querySelector<HTMLElement>('.preview-player')!;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${button.dataset.previewVideo}?autoplay=1&rel=0`;
+    iframe.title = button.dataset.videoTitle ?? 'Project film';
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    player.replaceChildren(iframe);
+    player.hidden = false;
+    player.scrollIntoView({
+      behavior: reduced.matches ? 'instant' : 'smooth',
+      block: 'nearest',
+    });
+    iframe.focus({ preventScroll: true });
+  });
+  document
+    .querySelectorAll<HTMLElement>('[data-project-rail]')
+    .forEach((rail) => {
+      const section = rail.closest('section')!;
+      const controls = document.createElement('div');
+      controls.className = 'rail-controls';
+      for (const [direction, label, glyph] of [
+        [-1, 'Previous projects', '←'],
+        [1, 'Next projects', '→'],
+      ] as const) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = glyph;
+        button.setAttribute('aria-label', label);
+        button.addEventListener('click', () =>
+          rail.scrollBy({
+            left: direction * rail.clientWidth * 0.8,
+            behavior: reduced.matches ? 'instant' : 'smooth',
+          }),
+        );
+        const update = () => {
+          button.disabled =
+            direction < 0
+              ? rail.scrollLeft <= 2
+              : rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2;
+        };
+        rail.addEventListener('scroll', update, { passive: true });
+        new ResizeObserver(update).observe(rail);
+        update();
+        controls.append(button);
+      }
+      section.querySelector('.section-heading')?.append(controls);
+    });
+</script>
