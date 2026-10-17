@@ -5,7 +5,6 @@ categories: ['interactive', '3d']
 status: 'stopped'
 stage: 'App prototype'
 role: 'App development'
-featured: 4
 cover:
   {
     'src': '/images/SolarGaze.png',
