@@ -59,7 +59,7 @@ const data = project.data;
           <span aria-hidden="true">↗</span>
         </span>
       </div>
-      {['development', 'concept', 'archive'].includes(data.status) && (
+      {['development', 'concept', 'archive', 'stopped'].includes(data.status) && (
         <span class="status-badge">{statuses[data.status]}</span>
       )}
     </div>

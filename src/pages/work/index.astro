@@ -43,6 +43,7 @@ const projects = await getProjects();
           <option value="complete">Completed work</option>
           <option value="progress">In progress</option>
           <option value="archive">Archive</option>
+          <option value="stopped">On hold / paused</option>
         </select>
         <span id="result-count" role="status" aria-live="polite">
           {projects.length} projects
