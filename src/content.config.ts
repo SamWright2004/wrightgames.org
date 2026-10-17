@@ -24,7 +24,7 @@ const projects = defineCollection({
     title: z.string().min(1),
     summary: z.string().min(1).max(240),
     categories: z.array(z.enum(['film', '3d', 'design', 'interactive'])).min(1),
-    status: z.enum(['complete', 'development', 'concept', 'archive']),
+    status: z.enum(['complete', 'development', 'concept', 'archive', 'stopped']),
     stage: z.string().optional(),
     year: z.string().optional(),
     role: z.string().min(1),
