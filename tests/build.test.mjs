@@ -90,12 +90,11 @@ test('project bodies render without JavaScript and embeds wait for interaction',
   assert.doesNotMatch(film, /<iframe/);
   const home = await readFile(path.join(dist, 'index.html'), 'utf8');
   for (const title of [
-    'Across the Field',
     'pTable',
+    'The relic',
     'Black hole',
-    'SolarGaze',
-    'A Minecraft film',
-    'A Kerbal Space Program film',
+    'New home',
+    'Across the Field',
   ])
     assert.ok(home.includes(title), title);
   assert.doesNotMatch(home, /jquery|elfsight|googletagmanager/);
