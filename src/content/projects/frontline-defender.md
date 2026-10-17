@@ -1,6 +1,6 @@
 ---
 title: 'Frontline Defender'
-summary: 'A Second World War tower-defence game from the early Wright Games archive.'
+summary: 'A Second World War tower-defence game.'
 categories: ['interactive']
 status: 'archive'
 year: '2019'
@@ -21,6 +21,6 @@ links:
 
 ## From the Wright Games archive
 
-A Second World War tower-defence game from the early Wright Games archive.
+A Second World War tower-defence game.
 
 Released in 2019, this is one of my earlier independent game projects. The original artwork and GameJolt link are preserved here.

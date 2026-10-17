@@ -2,7 +2,7 @@
 title: 'SolarGaze'
 summary: 'An educational solar-system app prototype, exploring planets through an interactive 3D view.'
 categories: ['interactive', '3d']
-status: 'archive'
+status: 'stopped'
 stage: 'App prototype'
 role: 'App development'
 featured: 4

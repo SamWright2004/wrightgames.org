@@ -1,6 +1,6 @@
 ---
 title: 'Black hole'
-summary: 'A study in scale, light and atmosphere. Digital artwork from the Wright Games portfolio.'
+summary: 'A study in scale, light and atmosphere.'
 categories: ['3d']
 status: 'complete'
 role: 'Digital artwork'
@@ -26,6 +26,4 @@ links:
 
 ## Imagining the unfamiliar
 
-A black hole rendered as a dark centre surrounded by light: the accretion disc bends above and below it, set against a field of stars.
-
-This image is part of my existing digital-art portfolio and the visual identity of Wright Games.
+A black hole rendered with an accretion disc bending above and below it, set against a field of stars.

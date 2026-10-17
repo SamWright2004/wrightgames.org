@@ -1,6 +1,6 @@
 ---
 title: 'Shadows in Motion'
-summary: 'A first-year final short film. My contribution focused on the edit.'
+summary: 'A first-year final short film. Edited by myself.'
 categories: ['film']
 status: 'complete'
 role: 'Editing'

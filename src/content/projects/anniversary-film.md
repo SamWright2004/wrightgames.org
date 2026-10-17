@@ -15,4 +15,4 @@ videos:
 
 ## A personal celebration
 
-A video made for Mark and Rachel’s 25th wedding anniversary, retained from the original Wright Games portfolio.
+A video made for Mark and Rachel’s 25th wedding anniversary.

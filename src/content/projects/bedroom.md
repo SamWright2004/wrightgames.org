@@ -9,4 +9,4 @@ coverPosition: "50% 50%"
 coverFit: "contain"
 ---
 
-A figure sits beside a wide window in a futuristic bedroom, overlooking a city.
+A figure sits beside a wide window in a futuristic bedroom, overlooking a city. One of my most detailed scenes.

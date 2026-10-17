@@ -1,6 +1,6 @@
 ---
 title: 'Across the Field'
-summary: 'A second-year short film, shaped in the edit. Watch the complete film and its trailer.'
+summary: 'A second-year short film, edited by myself. Watch the complete film and its trailer.'
 categories: ['film']
 status: 'complete'
 role: 'Editing'

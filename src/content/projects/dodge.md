@@ -1,6 +1,6 @@
 ---
 title: "Dodge"
-summary: "A dark car beneath a geometric illuminated ceiling."
+summary: "A Dodge Challenger beneath a geometric illuminated ceiling."
 categories: ["3d"]
 status: "complete"
 role: "3D artwork"
@@ -9,4 +9,4 @@ coverPosition: "50% 55%"
 coverFit: "contain"
 ---
 
-A dark car beneath a geometric illuminated ceiling.
+A Dodge Challenger beneath a geometric illuminated ceiling.

@@ -1,6 +1,6 @@
 ---
 title: 'pTable'
-summary: 'An educational mobile app for learning the periodic table, independently developed under Wright Games.'
+summary: 'An educational mobile app for learning the periodic table, independently developed by myself.'
 categories: ['interactive', 'design']
 status: 'complete'
 year: '2020'

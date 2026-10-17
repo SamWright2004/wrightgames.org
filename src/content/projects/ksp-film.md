@@ -1,6 +1,6 @@
 ---
 title: 'A Kerbal Space Program film'
-summary: 'A science-fiction film project exploring tension, scale and emotion through environments and spacecraft.'
+summary: 'A cinematic short film set in the Kerbal Space Program universe, following Jeb, the last astronaut of a civilisation forced underground, as he prepares for one final mission into space.'
 categories: ['film', '3d']
 status: 'development'
 stage: 'Story & visual development'
@@ -10,9 +10,9 @@ placeholder: 'orbit'
 
 ## A world with a story to tell
 
-An original science-fiction film project inspired by Kerbal Space Program, with Blender production in development.
+A cinematic short film set in the Kerbal Space Program universe, following Jeb, the last astronaut of a civilisation forced underground, as he prepares for one final mission into space. The animation is being done entirely in Blender.
 
-The creative focus is on communicating emotion and tension through environments, spacecraft, composition and sound, including scenes where there is no human face to carry the moment.
+Beyond the rockets and inevitable chaos, it's a personal story about childhood dreams, perseverance, and the hope that keeps us exploring.
 
 ## In development
 

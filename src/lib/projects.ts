@@ -6,6 +6,7 @@ export const statuses = {
   development: 'In development',
   concept: 'Concept',
   archive: 'From the archive',
+  stopped: 'On Hold / Paused',
 };
 export const isInProgress = (project: Project) =>
   ['development', 'concept'].includes(project.data.status);
