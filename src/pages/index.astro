@@ -8,7 +8,7 @@ const selected = projects.filter((p) => p.data.featured && !isOnWorkbench(p));
 const artwork = projects.filter(
   (p) => p.data.categories.includes('3d') && p.data.status === 'complete',
 );
-const developing = projects.filter(isOnWorkbench).slice(0, 3);
+const developing = projects.filter(isOnWorkbench).slice(0, 4);
 ---
 
 <Base>
