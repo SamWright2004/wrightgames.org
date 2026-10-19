@@ -2,13 +2,13 @@
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { categories } from '../data/site';
-import { getProjects, isInProgress } from '../lib/projects';
+import { getProjects, isOnWorkbench } from '../lib/projects';
 const projects = await getProjects();
-const selected = projects.filter((p) => p.data.featured && !isInProgress(p));
+const selected = projects.filter((p) => p.data.featured && !isOnWorkbench(p));
 const artwork = projects.filter(
   (p) => p.data.categories.includes('3d') && p.data.status === 'complete',
 );
-const developing = projects.filter(isInProgress).slice(0, 2);
+const developing = projects.filter(isOnWorkbench).slice(0, 3);
 ---
 
 <Base>

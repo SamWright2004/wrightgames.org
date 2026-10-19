@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { getProjects, isInProgress } from '../lib/projects';
-const projects = (await getProjects()).filter(isInProgress);
+import { getProjects, isOnWorkbench } from '../lib/projects';
+const projects = (await getProjects()).filter(isOnWorkbench);
 ---
 
 <Base title="In progress">

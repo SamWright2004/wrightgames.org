@@ -5,6 +5,7 @@ categories: ['film']
 status: 'archive'
 stage: 'Early film test'
 role: 'Personal film experiment'
+draft: true
 cover:
   {
     'src': 'https://i.ytimg.com/vi/KVKgS7PoBl0/hqdefault.jpg',

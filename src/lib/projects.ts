@@ -10,6 +10,8 @@ export const statuses = {
 };
 export const isInProgress = (project: Project) =>
   ['development', 'concept'].includes(project.data.status);
+export const isOnWorkbench = (project: Project) =>
+  ['development', 'concept', 'stopped'].includes(project.data.status);
 export const projectUrl = (project: Project) => `/work/${project.id}/`;
 export const getProjects = async () =>
   (
